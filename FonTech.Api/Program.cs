@@ -1,8 +1,10 @@
 using FonTech.Api;
 using FonTech.Api.MiddleWares;
 using FonTech.Application.DependencyInjection;
+using FonTech.Consumer.DependencyInjection;
 using FonTech.DAL.DependencyInjection;
 using FonTech.Domain.Settings;
+using FonTech.Producer.DependencyInjection;
 using Serilog;
 
 
@@ -10,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection(nameof(RabbitMqSettings)));
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(JwtSettings.DefaultSection));
 
 builder.Services.AddControllers();
@@ -22,6 +25,8 @@ builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Confi
 
 builder.Services.AddDataAccessLayer(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddProducer();
+builder.Services.AddConsumer();
 
 
 var app = builder.Build();

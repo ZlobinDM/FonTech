@@ -5,4 +5,7 @@ public class RabbitMqSettings
     public string QueueName { get; set; }
 
     public string RotingKey { get; set; }
+    
+    public string ExchangeName { get; set; }
+    
 }
