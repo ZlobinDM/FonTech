@@ -1,0 +1,5 @@
+{"@t":"2024-07-03T16:12:42.5735283Z","@mt":"Now listening on: {address}","address":"https://localhost:7261","EventId":{"Id":14,"Name":"ListeningOnAddress"},"SourceContext":"Microsoft.Hosting.Lifetime"}
+{"@t":"2024-07-03T16:12:42.7074203Z","@mt":"Now listening on: {address}","address":"http://localhost:5137","EventId":{"Id":14,"Name":"ListeningOnAddress"},"SourceContext":"Microsoft.Hosting.Lifetime"}
+{"@t":"2024-07-03T16:12:42.7204445Z","@mt":"Application started. Press Ctrl+C to shut down.","SourceContext":"Microsoft.Hosting.Lifetime"}
+{"@t":"2024-07-03T16:12:42.7330772Z","@mt":"Hosting environment: {envName}","envName":"Development","SourceContext":"Microsoft.Hosting.Lifetime"}
+{"@t":"2024-07-03T16:12:42.7372175Z","@mt":"Content root path: {contentRoot}","contentRoot":"C:\\Users\\ZlobinD\\Source\\StudyProjects\\FonTech\\FonTech.Api\\","SourceContext":"Microsoft.Hosting.Lifetime"}
