@@ -7,7 +7,10 @@ using FonTech.Domain.Interfaces.Repositories;
 using FonTech.Domain.Interfaces.Services;
 using FonTech.Domain.Interfaces.Validations;
 using FonTech.Domain.Result;
+using FonTech.Domain.Settings;
+using FonTech.Producer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Serilog;
 
 namespace FonTech.Application.Services;
@@ -18,6 +21,8 @@ public class ReportService : IReportService
     private readonly IBaseRepository<Report> _reportRepository;
     private readonly IBaseRepository<User> _userRepository;
     private readonly IReportValidator _reportValidator;
+    private readonly IMessageProducer _messageProducer;
+    private readonly IOptions<RabbitMqSettings> _rabbitMqOptions;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
 
@@ -25,13 +30,15 @@ public class ReportService : IReportService
         IBaseRepository<User> userRepository, 
         IReportValidator reportValidator,
         IMapper mapper,
-        ILogger logger)
+        ILogger logger, IMessageProducer messageProducer, IOptions<RabbitMqSettings> rabbitMqOptions)
     {
         _reportRepository = reportRepository;
         _userRepository = userRepository;
         _reportValidator = reportValidator;
         _mapper = mapper;
         _logger = logger;
+        _messageProducer = messageProducer;
+        _rabbitMqOptions = rabbitMqOptions;
     }
     public async Task<CollectionResult<ReportDto>> GetReportsAsync(long userId)
     {
@@ -137,6 +144,8 @@ public class ReportService : IReportService
             };
 
             await _reportRepository.CreateAsync(report);
+            
+            _messageProducer.SendMessage(report, _rabbitMqOptions.Value.RotingKey, _rabbitMqOptions.Value.ExchangeName);
             
             return new BaseResult<ReportDto>()
             {

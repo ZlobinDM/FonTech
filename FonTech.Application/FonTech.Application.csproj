@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FonTech.Domain\FonTech.Domain.csproj" />
+      <ProjectReference Include="..\FonTech.Producer\FonTech.Producer.csproj" />
     </ItemGroup>
 
     <ItemGroup>

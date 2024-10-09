@@ -20,7 +20,7 @@ public class RabbitMqListener : BackgroundService
         var factory = new ConnectionFactory() { HostName = "localhost" };
         _connection = factory.CreateConnection();
         _chanel = _connection.CreateModel();
-        _chanel.QueueDeclare(_options.Value.QueueName, true, true, false, null);
+        _chanel.QueueDeclare(_options.Value.QueueName, true, false, false, null);
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
