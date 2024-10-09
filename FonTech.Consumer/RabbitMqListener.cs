@@ -32,21 +32,21 @@ public class RabbitMqListener : BackgroundService
         {
             var content = Encoding.UTF8.GetString(basicDeliver.Body.ToArray());
             Debug.WriteLine("Полученно сообщение: {content}");
-            
+
             _chanel.BasicAck(basicDeliver.DeliveryTag, false);
         };
 
         _chanel.BasicConsume(_options.Value.QueueName, false, consumer);
-        
-        Dispose();
-        
+
+        // Dispose();
+
         return Task.CompletedTask;
     }
 
-    public override void Dispose()
-    {
-        _chanel.Dispose();
-        _connection.Dispose();
-        base.Dispose();
-    }
+    // public override void Dispose()
+    // {
+    //     _chanel.Dispose();
+    //     _connection.Dispose();
+    //     base.Dispose();
+    // }
 }
